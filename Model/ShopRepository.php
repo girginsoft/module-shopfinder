@@ -18,9 +18,13 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Reflection\DataObjectProcessor;
+use Magento\Store\Api\Data\StoreInterfaceFactory;
 use Magento\Store\Model\StoreManagerInterface;
 
-
+/**
+ * Class ShopRepository
+ * @package Girginsoft\Shopfinder\Model
+ */
 class ShopRepository implements ShopRepositoryInterface
 {
     /**
@@ -58,7 +62,7 @@ class ShopRepository implements ShopRepositoryInterface
      */
     protected $dataShopFactory;
     /**
-     * @var \Magento\Store\Api\Data\StoreInterfaceFactory
+     * @var StoreInterfaceFactory
      */
     protected $dataStoreFactory;
 
@@ -71,7 +75,7 @@ class ShopRepository implements ShopRepositoryInterface
      * @param ResourceShop $resource
      * @param ShopFactory $shopFactory
      * @param Data\ShopInterfaceFactory $dataShopFactory
-     * @param \Magento\Store\Api\Data\StoreInterfaceFactory $dataStoreFactory
+     * @param StoreInterfaceFactory $dataStoreFactory
      * @param ShopCollectionFactory $shopCollectionFactory
      * @param Data\ShopSearchResultInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
@@ -82,7 +86,7 @@ class ShopRepository implements ShopRepositoryInterface
         ResourceShop $resource,
         ShopFactory $shopFactory,
         Data\ShopInterfaceFactory $dataShopFactory,
-        \Magento\Store\Api\Data\StoreInterfaceFactory $dataStoreFactory,
+        StoreInterfaceFactory $dataStoreFactory,
         ShopCollectionFactory $shopCollectionFactory,
         Data\ShopSearchResultInterfaceFactory $searchResultsFactory,
         DataObjectHelper $dataObjectHelper,
@@ -109,7 +113,6 @@ class ShopRepository implements ShopRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria = null)
     {
-
         $searchResults = $this->searchResultsFactory->create();
         $collection = $this->shopCollectionFactory->create();
         if ($this->storeManager->getStore()->getCode() != "default") {

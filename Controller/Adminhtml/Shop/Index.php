@@ -5,7 +5,10 @@ use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
 
-
+/**
+ * Class Index
+ * @package Girginsoft\Shopfinder\Controller\Adminhtml\Shop
+ */
 class Index extends Action
 {
     /**
@@ -25,18 +28,18 @@ class Index extends Action
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
     }
 
     public function execute()
     {
-		$this->resultPage = $this->resultPageFactory->create();
-		$this->resultPage->setActiveMenu('Girginsoft_Shop::shop');
-		$this->resultPage ->getConfig()->getTitle()->set((__('Shopfinder')));
-		return $this->resultPage;
+        $this->resultPage = $this->resultPageFactory->create();
+        $this->resultPage->setActiveMenu('Girginsoft_Shop::shop');
+        $this->resultPage->getConfig()->getTitle()->set((__('Shopfinder')));
+
+        return $this->resultPage;
     }
 
     /**
@@ -44,8 +47,6 @@ class Index extends Action
      */
     protected function _isAllowed()
     {
-        return true;
-
         return $this->_authorization->isAllowed('Girginsoft_Shopfinder::shop');
     }
 }

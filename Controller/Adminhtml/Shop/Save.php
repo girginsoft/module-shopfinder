@@ -2,8 +2,9 @@
 namespace Girginsoft\Shopfinder\Controller\Adminhtml\Shop;
 
 use Girginsoft\Shopfinder\Model\Shop;
-use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Backend\App\Action;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Model\Exception;
 
 /**
  * Class Save
@@ -26,11 +27,11 @@ class Save extends Action
             if ($id) {
                 $model->load($id);
             }
-            if(!isset($data['image']['delete']) && isset($data['image']['value'])) {
+            if (!isset($data['image']['delete']) && isset($data['image']['value'])) {
                 $data['image'] = $data['image']['value'];
             }
             $model->setData($data);
-            if(isset($data['image']['delete'])) {
+            if (isset($data['image']['delete'])) {
                 $model->setImage();
                 $path = $mediaDirectory->getAbsolutePath($data['image']['value']);
                 if (file_exists($path)) {
@@ -69,7 +70,7 @@ class Save extends Action
                 $this->_redirect('*/*/');
 
                 return;
-            } catch (\Magento\Framework\Model\Exception $e) {
+            } catch (Exception $e) {
                 $this->messageManager->addError($e->getMessage());
             } catch (\RuntimeException $e) {
                 $this->messageManager->addError($e->getMessage());
@@ -77,7 +78,10 @@ class Save extends Action
                 if ($e->getCode() == 23000) {
                     $this->messageManager->addException($e, __('Identifier is already in use'));
                 } else {
-                    $this->messageManager->addException($e, __('Something went wrong in database while saving the shop.'));
+                    $this->messageManager->addException(
+                        $e,
+                        __('Something went wrong in database while saving the shop.')
+                    );
                 }
             } catch (\Exception $e) {
                 $this->messageManager->addException($e, __('Something went wrong while saving the shop.'));

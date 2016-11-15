@@ -1,16 +1,26 @@
 <?php
 /**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
+ * Created by PhpStorm.
+ * User: girginsoft
  */
 namespace Girginsoft\Shopfinder\Model\ResourceModel\Shop;
 
 use Girginsoft\Shopfinder\Api\Data\ShopInterface;
+use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
+use Magento\Framework\Data\Collection\EntityFactoryInterface;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
+use Magento\Framework\EntityManager\MetadataPool;
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Store\Model\Store;
+use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LoggerInterface;
+
 /**
- * Shops Collection
- *
+ * Class Collection
+ * @package Girginsoft\Shopfinder\Model\ResourceModel\Shop
  */
 class Collection extends AbstractCollection
 {
@@ -32,15 +42,25 @@ class Collection extends AbstractCollection
      */
     protected $_idFieldName = 'shop_id';
 
+    /**
+     * @param EntityFactoryInterface $entityFactory
+     * @param LoggerInterface $logger
+     * @param FetchStrategyInterface $fetchStrategy
+     * @param ManagerInterface $eventManager
+     * @param StoreManagerInterface $storeManager
+     * @param MetadataPool $metadataPool
+     * @param AdapterInterface|null $connection
+     * @param AbstractDb|null $resource
+     */
     public function __construct(
-        \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
-        \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\EntityManager\MetadataPool $metadataPool,
-        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
+        EntityFactoryInterface $entityFactory,
+        LoggerInterface $logger,
+        FetchStrategyInterface $fetchStrategy,
+        ManagerInterface $eventManager,
+        StoreManagerInterface $storeManager,
+        MetadataPool $metadataPool,
+        AdapterInterface $connection = null,
+        AbstractDb $resource = null
     ) {
         $this->storeManager = $storeManager;
         $this->metadataPool = $metadataPool;
@@ -73,7 +93,7 @@ class Collection extends AbstractCollection
         if (count($linkedIds)) {
             $connection = $this->getConnection();
             $select = $connection->select()->from(['shop_entity_store' => $this->getTable($tableName)])
-                ->where('shop_entity_store.' . $linkField . ' IN (?)', $linkedIds);
+                ->where('shop_entity_store.'.$linkField.' IN (?)', $linkedIds);
             $result = $connection->fetchAll($select);
             if ($result) {
                 $storesData = [];
@@ -156,10 +176,10 @@ class Collection extends AbstractCollection
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
                 ['store_table' => $this->getTable($tableName)],
-                'main_table.' . $linkField . ' = store_table.' . $linkField,
+                'main_table.'.$linkField.' = store_table.'.$linkField,
                 []
             )->group(
-                'main_table.' . $linkField
+                'main_table.'.$linkField
             );
         }
         parent::_renderFiltersBefore();
@@ -170,16 +190,15 @@ class Collection extends AbstractCollection
      *
      * Extra GROUP BY strip added.
      *
-     * @return \Magento\Framework\DB\Select
+     * @return Select
      */
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
-        $countSelect->reset(\Magento\Framework\DB\Select::GROUP);
+        $countSelect->reset(Select::GROUP);
 
         return $countSelect;
     }
-
 
 
     /**
@@ -194,6 +213,7 @@ class Collection extends AbstractCollection
         if (!$this->getFlag('store_filter_added')) {
             $this->performAddStoreFilter($store, $withAdmin);
         }
+
         return $this;
     }
 

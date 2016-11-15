@@ -82,9 +82,9 @@ class InstallSchema implements InstallSchemaInterface
             );
         $installer->getConnection()->createTable($table);
 
-        $table = $installer->getConnection()->newTable(
-            $installer->getTable('shopfinder_shops_store')
-            )->addColumn(
+        $table = $installer->getConnection()
+            ->newTable($installer->getTable('shopfinder_shops_store'))
+            ->addColumn(
                 'shop_id',
                 Table::TYPE_INTEGER,
                 null,
@@ -110,10 +110,10 @@ class InstallSchema implements InstallSchemaInterface
                 'store_id',
                 $installer->getTable('store'),
                 'store_id',
-               Table::ACTION_CASCADE
+                Table::ACTION_CASCADE
             )->setComment(
                 'Shop Store Linkage Table'
-        );
+            );
 
         $installer->getConnection()->createTable($table);
         $installer->endSetup();

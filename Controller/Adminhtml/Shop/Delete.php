@@ -1,7 +1,13 @@
 <?php
 namespace Girginsoft\Shopfinder\Controller\Adminhtml\Shop;
 
-class Delete extends \Magento\Backend\App\Action
+use Magento\Backend\App\Action;
+
+/**
+ * Class Delete
+ * @package Girginsoft\Shopfinder\Controller\Adminhtml\Shop
+ */
+class Delete extends Action
 {
     /**
      * @var \Magento\Framework\View\Result\PageFactory

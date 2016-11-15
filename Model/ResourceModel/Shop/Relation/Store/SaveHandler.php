@@ -7,16 +7,14 @@
  */
 
 namespace Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store;
-
-
 use Girginsoft\Shopfinder\Model\ResourceModel\Shop;
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 use Girginsoft\Shopfinder\Api\Data\ShopInterface;
 use Magento\Cms\Model\ResourceModel\Page;
 use Magento\Framework\EntityManager\MetadataPool;
-
 /**
  * Class SaveHandler
+ * @package Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store
  */
 class SaveHandler implements ExtensionInterface
 {

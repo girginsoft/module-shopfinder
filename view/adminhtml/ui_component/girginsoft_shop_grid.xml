@@ -110,9 +110,7 @@
         </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
-
     <columns name="shopfinder_shop_columns">
-        <!--The list of columns-->
         <argument name="data" xsi:type="array">
             <item name="config" xsi:type="array">
                 <item name="childDefaults" xsi:type="array">
@@ -201,6 +199,4 @@
             </argument>
         </actionsColumn>
     </columns>
-
-
 </listing>

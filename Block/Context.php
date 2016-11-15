@@ -136,17 +136,6 @@ class Context extends \Magento\Framework\View\Element\Template\Context
             $validator
         );
     }
-
-    /**
-	 * Function for getting developer helper object
-     * @return \Girginsoft\Shopfinder\Helper\Data
-     */
-    public function getShopfinderHelper()
-    {
-        return $this->_devToolHelper;
-    }
-
-
     /**
 	 * Function for getting registry object
      * @return \Magento\Framework\Registry
@@ -155,15 +144,7 @@ class Context extends \Magento\Framework\View\Element\Template\Context
     {
         return $this->registry;
     }
-	
-	/**
-	 * Function for getting shopfinder model config object 
-     * @return \Girginsoft\Shopfinder\Model\Config
-     */
-	public function getConfig(){
-		return $this->_config;
-	}
-	
+
 	/**
 	 * Function for getting object manager object 
      * @return \Magento\Framework\ObjectManagerInterface

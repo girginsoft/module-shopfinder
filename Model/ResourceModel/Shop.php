@@ -7,12 +7,14 @@ namespace Girginsoft\Shopfinder\Model\ResourceModel;
 use Girginsoft\Shopfinder\Api\Data\ShopInterface;
 use Magento\Framework\EntityManager\EntityManager;
 use Magento\Framework\EntityManager\MetadataPool;
-use Magento\Framework\Model\ResourceModel\Db\Context;
-use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Model\AbstractModel;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\Context;
+use Magento\Store\Model\StoreManagerInterface;
+
 /**
- * Shop resource
+ * Class Shop
+ * @package Girginsoft\Shopfinder\Model\ResourceModel
  */
 class Shop extends AbstractDb
 {
@@ -93,11 +95,12 @@ class Shop extends AbstractDb
         if ($field != $entityMetadata->getIdentifierField() || $object->getStoreId()) {
             $select = $this->_getLoadSelect($field, $value, $object);
             $select->reset(Select::COLUMNS)
-                ->columns($this->getMainTable() . '.' . $entityMetadata->getIdentifierField())
+                ->columns($this->getMainTable().'.'.$entityMetadata->getIdentifierField())
                 ->limit(1);
             $result = $this->getConnection()->fetchCol($select);
             $shopId = count($result) ? $result[0] : false;
         }
+
         return $shopId;
     }
 
@@ -115,8 +118,10 @@ class Shop extends AbstractDb
         if ($shopId) {
             $this->entityManager->load($object, $shopId);
         }
+
         return $this;
     }
+
     /**
      * Retrieve select object for load object data
      *
@@ -139,6 +144,7 @@ class Shop extends AbstractDb
         )
             ->order('shopfinder_shops_store.store_id DESC')
             ->limit(1);
+
         return $select;
     }
 
@@ -196,6 +202,7 @@ class Shop extends AbstractDb
     public function save(AbstractModel $object)
     {
         $this->entityManager->save($object);
+
         return $this;
     }
 
@@ -205,6 +212,7 @@ class Shop extends AbstractDb
     public function delete(AbstractModel $object)
     {
         $this->entityManager->delete($object);
+
         return $this;
     }
 }

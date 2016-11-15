@@ -18,9 +18,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="shopfinder_shop_grid_data_source" xsi:type="string">
-                    Girginsoft\Shopfinder\Model\ResourceModel\Shop\Grid\Collection
-                </item>
+                <item name="shopfinder_shop_grid_data_source" xsi:type="string">Girginsoft\Shopfinder\Model\ResourceModel\Shop\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
@@ -40,19 +38,13 @@
             <argument name="extensionActions" xsi:type="array">
                 <item name="Girginsoft\Shopfinder\Api\Data\ShopInterface" xsi:type="array">
                     <item name="read" xsi:type="array">
-                        <item name="storeReader" xsi:type="string">
-                            Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\ReadHandler
-                        </item>
+                        <item name="storeReader" xsi:type="string">Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\ReadHandler</item>
                     </item>
                     <item name="create" xsi:type="array">
-                        <item name="storeCreator" xsi:type="string">
-                            Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\SaveHandler
-                        </item>
+                        <item name="storeCreator" xsi:type="string">Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\SaveHandler</item>
                     </item>
                     <item name="update" xsi:type="array">
-                        <item name="storeUpdater" xsi:type="string">
-                            Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\SaveHandler
-                        </item>
+                        <item name="storeUpdater" xsi:type="string">Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store\SaveHandler</item>
                     </item>
                 </item>
             </argument>
@@ -61,18 +53,14 @@
     <type name="Magento\Framework\EntityManager\HydratorPool">
         <arguments>
             <argument name="hydrators" xsi:type="array">
-                <item name="Girginsoft\Shopfinder\Api\Data\ShopInterface" xsi:type="string">
-                    Magento\Framework\EntityManager\AbstractModelHydrator
-                </item>
+                <item name="Girginsoft\Shopfinder\Api\Data\ShopInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Framework\Model\Entity\RepositoryFactory">
         <arguments>
             <argument name="entities" xsi:type="array">
-                <item name="Girginsoft\Shopfinder\Api\Data\ShopInterface" xsi:type="string">
-                    Girginsoft\Shopfinder\Api\ShopRepositoryInterface
-                </item>
+                <item name="Girginsoft\Shopfinder\Api\Data\ShopInterface" xsi:type="string">Girginsoft\Shopfinder\Api\ShopRepositoryInterface</item>
             </argument>
         </arguments>
     </type>

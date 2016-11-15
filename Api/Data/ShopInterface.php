@@ -9,7 +9,8 @@
 namespace Girginsoft\Shopfinder\Api\Data;
 
 /**
- * shop interface.
+ * Interface ShopInterface
+ * @package Girginsoft\Shopfinder\Api\Data
  * @api
  */
 interface ShopInterface
@@ -19,7 +20,6 @@ interface ShopInterface
     const SHOP_NAME                = 'shop_name';
     const COUNTRY                  = 'country';
     const IMAGE                    = 'image';
-    const STORES                   = 'store_id';
 
     /**
      * Get ID
@@ -36,7 +36,7 @@ interface ShopInterface
     public function setId($id);
 
     /**
-     * Set ID
+     * Set Shop Id
      *
      * @param int $id
      * @return \Girginsoft\Shopfinder\Api\Data\ShopInterface
@@ -44,14 +44,14 @@ interface ShopInterface
     public function setShopId($id);
 
     /**
-     * Get ID
+     * Get Store ID
      *
      * @return int[]
      */
     public function getStoreId();
 
     /**
-     * Set ID
+     * Set Store ID
      *
      * @param int[] $id
      * @return \Girginsoft\Shopfinder\Api\Data\ShopInterface
@@ -117,12 +117,4 @@ interface ShopInterface
      * @return \Girginsoft\Shopfinder\Api\Data\ShopInterface
      */
     public function setImage(string $image);
-
-//    /**
-//     * Receive stores
-//     *
-//     * @return \Magento\Store\Api\Data\StoreInterface
-//     */
-//    public function getStores();
-
 }

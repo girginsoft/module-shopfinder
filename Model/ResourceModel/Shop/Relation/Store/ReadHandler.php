@@ -14,6 +14,7 @@ use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 
 /**
  * Class ReadHandler
+ * @package Girginsoft\Shopfinder\Model\ResourceModel\Shop\Relation\Store
  */
 class ReadHandler implements ExtensionInterface
 {
@@ -43,7 +44,6 @@ class ReadHandler implements ExtensionInterface
      * @param object $entity
      * @param array $arguments
      * @return object
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute($entity, $arguments = [])
     {
@@ -51,6 +51,7 @@ class ReadHandler implements ExtensionInterface
             $stores = $this->resourceShop->lookupStoreIds((int)$entity->getId());
             $entity->setData('store_id', $stores);
         }
+
         return $entity;
     }
 }

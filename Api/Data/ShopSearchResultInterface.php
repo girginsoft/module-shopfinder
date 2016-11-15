@@ -10,20 +10,21 @@ namespace Girginsoft\Shopfinder\Api\Data;
 use Magento\Framework\Api\SearchResultsInterface;
 
 /**
- * Interface for shop search results.
+ * Interface ShopSearchResultInterface
+ * @package Girginsoft\Shopfinder\Api\Data
  * @api
  */
 interface ShopSearchResultInterface extends SearchResultsInterface
 {
     /**
-     * Get pages list.
+     * Get shop list.
      *
      * @return \Girginsoft\Shopfinder\Api\Data\ShopInterface[]
      */
     public function getItems();
 
     /**
-     * Set pages list.
+     * Set shop list.
      *
      * @param \Girginsoft\Shopfinder\Api\Data\ShopInterface[]$items
      * @return $this

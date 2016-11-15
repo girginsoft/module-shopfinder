@@ -9,7 +9,10 @@
 namespace Girginsoft\Shopfinder\Api;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
-
+/**
+ * Interface ShopRepositoryInterface
+ * @package Girginsoft\Shopfinder\Api
+ */
 interface ShopRepositoryInterface
 {
     /**

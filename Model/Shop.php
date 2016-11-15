@@ -16,7 +16,7 @@ use Magento\Framework\Registry;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
- * Shoptab shop model
+ *  shop model
  * @method array storeReaderreId()
  */
 class Shop extends AbstractModel implements ShopInterface, IdentityInterface
@@ -92,9 +92,9 @@ class Shop extends AbstractModel implements ShopInterface, IdentityInterface
     }
 
     /**
-     * Load No-Route JoinModel.
+     * Load No-Route Shop.
      *
-     * @return \Webkul\Stripe\Model\JoinModel
+     * @return \Girginsoft\Shopfinder\Model\Shop
      */
     public function noRouteReasons()
     {
@@ -199,8 +199,10 @@ class Shop extends AbstractModel implements ShopInterface, IdentityInterface
     public function save()
     {
         $this->beforeSave();
+
         return parent::save();
     }
+
     /**
      * @return $this
      */
@@ -209,6 +211,7 @@ class Shop extends AbstractModel implements ShopInterface, IdentityInterface
         if (!$this->getData("identifier")) {
             $this->setData("identifier", uniqid());
         }
+
         return parent::beforeSave();
     }
 
@@ -241,7 +244,7 @@ class Shop extends AbstractModel implements ShopInterface, IdentityInterface
     public function setStoreId(array $ids)
     {
         $this->setData('store_id', $ids);
-        $storeIds = (array) $this->getData('store_id');
+        $storeIds = (array)$this->getData('store_id');
         $stores = [];
         foreach ($storeIds as $id) {
             $stores[] = $this->_storeManager->getStore($id);

@@ -7,13 +7,14 @@
  */
 namespace Girginsoft\Shopfinder\Ui\Component\Shop\Listing\Column;
 
+use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Ui\Component\Listing\Columns\Column;
-use Magento\Framework\UrlInterface;
 
 /**
- * Class ProductActions
+ * Class ShopActions
+ * @package Girginsoft\Shopfinder\Ui\Component\Shop\Listing\Column
  */
 class ShopActions extends Column
 {

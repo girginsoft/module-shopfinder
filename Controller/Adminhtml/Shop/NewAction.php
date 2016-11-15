@@ -1,10 +1,19 @@
 <?php
 namespace Girginsoft\Shopfinder\Controller\Adminhtml\Shop;
+
 use Magento\Backend\App\Action;
-class NewAction extends \Magento\Backend\App\Action
+
+/**
+ * Class NewAction
+ * @package Girginsoft\Shopfinder\Controller\Adminhtml\Shop
+ */
+class NewAction extends Action
 {
-     public function execute()
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    public function execute()
     {
-		$this->_forward('edit');
+        $this->_forward('edit');
     }
 }
