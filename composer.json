@@ -18,7 +18,7 @@
         "psr-4": {
             "Girginsoft\\Shopfinder\\": ""
         }
-    }
+    },
     "extra": {
         "map": [
             [
