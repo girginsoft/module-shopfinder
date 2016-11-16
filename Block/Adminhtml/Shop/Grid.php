@@ -1,11 +1,22 @@
 <?php
 namespace Girginsoft\Shopfinder\Block\Adminhtml\Shop;
 
+use Girginsoft\Shopfinder\Model\ResourceModel\Shop\Collection;
+use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Grid\Extended;
+use Magento\Backend\Helper\Data;
+use Magento\Directory\Model\Config\Source\Country;
+use Magento\Framework\Module\Manager;
+use Magento\Store\Model\WebsiteFactory;
 
-class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
+/**
+ * Class Grid
+ * @package Girginsoft\Shopfinder\Block\Adminhtml\Shop
+ */
+class Grid extends Extended
 {
     /**
-     * @var \Magento\Framework\Module\Manager
+     * @var Manager
      */
     protected $moduleManager;
 
@@ -30,14 +41,14 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected $_status;
 
     /**
-     * @var \Magento\Directory\Model\Config\Source\Country
+     * @var Country
      */
     protected $_countryFactory;
 
     /**
-     * @var \Girginsoft\Shopfinder\Model\ResourceModel\Shop\Collection
+     * @var Collection
      */
-	protected $_collectionFactory;
+    protected $_collectionFactory;
 
     /**
      * @var \Magento\Catalog\Model\Product\Visibility
@@ -45,36 +56,30 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected $_visibility;
 
     /**
-     * @var \Magento\Store\Model\WebsiteFactory
+     * @var WebsiteFactory
      */
     protected $_websiteFactory;
 
     /**
-     * @param \Magento\Backend\Block\Template\Context $context
-     * @param \Magento\Backend\Helper\Data $backendHelper
-     * @param \Magento\Store\Model\WebsiteFactory $websiteFactory
-     * @param \Girginsoft\Shopfinder\Model\ResourceModel\Shop\Collection $collectionFactory
-     * @param \Magento\Framework\Module\Manager $moduleManager
+     * @param Context $context
+     * @param Data $backendHelper
+     * @param WebsiteFactory $websiteFactory
+     * @param Collection $collectionFactory
+     * @param Manager $moduleManager
+     * @param Country $_countryFactory
      * @param array $data
-     *
-     * @internal param \Magento\Eav\Model\ResourceModel\Entity\Attribute\Set\CollectionFactory $setsFactory
-     * @internal param \Magento\Catalog\Model\ProductFactory $productFactory
-     * @internal param \Magento\Catalog\Model\Product\Type $type
-     * @internal param \Magento\Catalog\Model\Product\Attribute\Source\Status $status
-     * @internal param \Magento\Catalog\Model\Product\Visibility $visibility
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        \Magento\Backend\Block\Template\Context $context,
-        \Magento\Backend\Helper\Data $backendHelper,
-        \Magento\Store\Model\WebsiteFactory $websiteFactory,
-		\Girginsoft\Shopfinder\Model\ResourceModel\Shop\Collection $collectionFactory,
-        \Magento\Framework\Module\Manager $moduleManager,
-        \Magento\Directory\Model\Config\Source\Country $_countryFactory,
+        Context $context,
+        Data $backendHelper,
+        WebsiteFactory $websiteFactory,
+        Collection $collectionFactory,
+        Manager $moduleManager,
+        Country $_countryFactory,
         array $data = []
     ) {
-		$this->_countryFactory = $_countryFactory;
-		$this->_collectionFactory = $collectionFactory;
+        $this->_countryFactory = $_countryFactory;
+        $this->_collectionFactory = $collectionFactory;
         $this->_websiteFactory = $websiteFactory;
         $this->moduleManager = $moduleManager;
         parent::__construct($context, $backendHelper, $data);
@@ -86,13 +91,13 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _construct()
     {
         parent::_construct();
-		
+
         $this->setId('productGrid');
         $this->setDefaultSort('id');
         $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setUseAjax(false);
-       
+
     }
 
     /**
@@ -101,6 +106,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _getStore()
     {
         $storeId = (int)$this->getRequest()->getParam('store', 0);
+
         return $this->_storeManager->getStore($storeId);
     }
 
@@ -109,49 +115,20 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     protected function _prepareCollection()
     {
-		try{
-			
-			
-			$collection =$this->_collectionFactory->load();
+        try {
+            $collection = $this->_collectionFactory->load();
+            $this->setCollection($collection);
+            parent::_prepareCollection();
 
-		  
-
-			$this->setCollection($collection);
-
-			parent::_prepareCollection();
-		  
-			return $this;
-		}
-		catch(Exception $e)
-		{
-			echo $e->getMessage();die;
-		}
-    }
-
-    /**
-     * @param \Magento\Backend\Block\Widget\Grid\Column $column
-     * @return $this
-     */
-    protected function _addColumnFilterToCollection($column)
-    {
-        if ($this->getCollection()) {
-            if ($column->getId() == 'websites') {
-                $this->getCollection()->joinField(
-                    'websites',
-                    'catalog_product_website',
-                    'website_id',
-                    'product_id=entity_id',
-                    null,
-                    'left'
-                );
-            }
+            return $this;
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;;
         }
-        return parent::_addColumnFilterToCollection($column);
     }
 
     /**
      * @return $this
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     protected function _prepareColumns()
     {
@@ -165,7 +142,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
                 'column_css_class' => 'col-id'
             ]
         );
-		$this->addColumn(
+        $this->addColumn(
             'shop_name',
             [
                 'header' => __('Shop Name'),
@@ -191,7 +168,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
             }
             $options[$country["value"]] = $country["label"];
         }
-        //var_dump($options);
 
         $this->addColumn(
             'country',
@@ -204,7 +180,6 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
 
             ]
         );
-
 
         $this->addColumn(
             'image',
@@ -234,7 +209,7 @@ class Grid extends \Magento\Backend\Block\Widget\Grid\Extended
         return parent::_prepareColumns();
     }
 
-     /**
+    /**
      * @return $this
      */
     protected function _prepareMassaction()
