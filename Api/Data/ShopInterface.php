@@ -117,9 +117,4 @@ interface ShopInterface
      * @return \Girginsoft\Shopfinder\Api\Data\ShopInterface
      */
     public function setImage(string $image);
-
-    /**
-     * @return mixed
-     */
-    public function getStores();
 }
