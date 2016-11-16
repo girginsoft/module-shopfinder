@@ -10,7 +10,7 @@ namespace Girginsoft\Shopfinder\Model;
 
 use Girginsoft\Shopfinder\Api\Data;
 use Girginsoft\Shopfinder\Api\ShopRepositoryInterface;
-use Girginsoft\Shopfinder\Block\Adminhtml\Shop;
+use Girginsoft\Shopfinder\Model\Shop;
 use Girginsoft\Shopfinder\Model\ResourceModel\Shop as ResourceShop;
 use Girginsoft\Shopfinder\Model\ResourceModel\Shop\Grid\CollectionFactory as ShopCollectionFactory;
 use Magento\Framework\Api\DataObjectHelper;
@@ -143,24 +143,27 @@ class ShopRepository implements ShopRepositoryInterface
                 $shopModel->getData(),
                 'Girginsoft\Shopfinder\Api\Data\ShopInterface'
             );
-            $shopData->setStoreId($shopModel->getData('store_id'));
             $stores = [];
-            foreach ($shopData->getStores() as $store) {
-                $storeData = $this->dataStoreFactory->create();
-                $this->dataObjectHelper->populateWithArray(
-                    $storeData,
-                    $store->getData(),
-                    '\Magento\Store\Api\Data\StoreInterface'
-                );
-                $stores[] = $this->dataObjectProcessor->buildOutputDataArray(
-                    $storeData,
-                    '\Magento\Store\Api\Data\StoreInterface'
-                );
+            if ($shopModel->getData('store_id') !== null) {
+                $shopData->setStoreId($shopModel->getData('store_id'));
+                foreach ($shopData->getStores() as $store) {
+                    $storeData = $this->dataStoreFactory->create();
+                    $this->dataObjectHelper->populateWithArray(
+                        $storeData,
+                        $store->getData(),
+                        '\Magento\Store\Api\Data\StoreInterface'
+                    );
+                    $stores[] = $this->dataObjectProcessor->buildOutputDataArray(
+                        $storeData,
+                        '\Magento\Store\Api\Data\StoreInterface'
+                    );
+                }
             }
             $shop = $this->dataObjectProcessor->buildOutputDataArray(
                 $shopData,
                 'Girginsoft\Shopfinder\Api\Data\ShopInterface'
             );
+
             $shop['stores'] = $stores;
             $shops[] = $shop;
 
